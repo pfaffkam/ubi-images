@@ -18,8 +18,8 @@ jobs:
               type=raw,value=mainline-ubi9
               type=raw,value=mainline-ubi9-{{date 'YYYYMMDD'}}
     with:
-      image-name: pfaffk/node
-      build-context: ./node
+      image-name: pfaffk/nginx
+      build-context: ./nginx
       dockerfile: ${{ matrix.dockerfile }}
       image-title: ${{ matrix.title }}
       tags: ${{ matrix.tags }}
