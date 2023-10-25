@@ -1,0 +1,18 @@
+name: Build and publish all docker images.
+
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: '0 20 * * 1' # Build every monday at 20:00
+
+jobs:
+  build_nginx_images:
+    name: Build NGINX images.
+    uses: ./.github/workflows/build-and-test-images.yml
+    secrets: inherit
+    with:
+      build-context: ./nginx
+      dockerfile-name: mainline-ubi9.dockerfile
+      image-name: nginx
+      image-type: mainline
+      image-system: ubi9
