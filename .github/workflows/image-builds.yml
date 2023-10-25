@@ -13,3 +13,7 @@ jobs:
   build_node_images:
     uses: ./.github/workflows/build-node.yml
     secrets: inherit
+
+  build_php_images:
+    uses: ./.github/workflows/build-php.yml
+    secrets: inherit

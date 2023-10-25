@@ -1,0 +1,25 @@
+name: Build and publish PHP images.
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build_php_images:
+    uses: ./.github/workflows/reusable-build-and-push-image.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - title: phpfpm-ubi9
+            dockerfile: 8.1fpm-ubi9.dockerfile
+            tags: |
+              type=raw,value=8.1fpm-ubi9
+              type=raw,value=8.1fpm-ubi9-{{date 'YYYYMMDD'}}
+    with:
+      image-name: pfaffk/php
+      build-context: ./php
+      dockerfile: ${{ matrix.dockerfile }}
+      image-title: ${{ matrix.title }}
+      tags: ${{ matrix.tags }}
