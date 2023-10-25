@@ -1,0 +1,26 @@
+name: Build and publish NODE images.
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build_node_images:
+    uses: ./.github/workflows/reusable-build-and-push-image.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - title: node-ubi9
+            dockerfile: 21-ubi9.dockerfile
+            tags: |
+              type=raw,value=21-ubi9
+              type=raw,value=21-ubi9-{{date 'YYYYMMDD'}}
+    with:
+      image-name: pfaffk/node
+      build-context: ./node
+      dockerfile: ${{ matrix.dockerfile }}
+      image-title: ${{ matrix.title }}
+      tags: ${{ matrix.tags }}
+            

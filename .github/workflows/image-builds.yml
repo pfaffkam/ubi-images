@@ -1,4 +1,4 @@
-name: Build and publish all docker images.
+name: Build and publish ALL docker images.
 
 on: 
   workflow_dispatch:
@@ -6,34 +6,10 @@ on:
     - cron: '0 20 * * 1' # Build every monday at 20:00
 
 jobs:
-  # build_nginx_images:
-  #   name: Build NGINX images.
-  #   uses: ./.github/workflows/templates/build-and-test-images-new.yml
-  #   secrets: inherit
-  #   with:
-  #     build-context: ./nginx
-  #     dockerfile-name: mainline-ubi9.dockerfile
-  #     image-name: nginx
-  #     image-type: mainline
-  #     image-system: ubi9
-
-  build_node_images:
-    name: Build NODE images. ./.github/workflows/templates/build-and-test-images.yml
-    uses: ./.github/workflows/reusable-build-and-push-image.yml
+  build_nginx_images:
+    uses: ./.github/workflows/build-nginx.yml
     secrets: inherit
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - title: node-ubi9
-            dockerfile: 21-ubi9.dockerfile
-            tags: |
-              type=raw,value=21-ubi9
-              type=raw,value=21-ubi9-{{date 'YYYYMMDD'}}
-    with:
-      image-name: pfaffk/node
-      build-context: ./node
-      dockerfile: ${{ matrix.dockerfile }}
-      image-title: ${{ matrix.title }}
-      tags: ${{ matrix.tags }}
-            
+  
+  build_node_images:
+    uses: ./.github/workflows/build-node.yml
+    secrets: inherit

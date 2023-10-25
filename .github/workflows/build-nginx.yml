@@ -1,0 +1,25 @@
+name: Build and publish NGINX images.
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build_nginx_images:
+    uses: ./.github/workflows/reusable-build-and-push-image.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - title: nginx-ubi9
+            dockerfile: mainline-ubi9.dockerfile
+            tags: |
+              type=raw,value=mainline-ubi9
+              type=raw,value=mainline-ubi9-{{date 'YYYYMMDD'}}
+    with:
+      image-name: pfaffk/node
+      build-context: ./node
+      dockerfile: ${{ matrix.dockerfile }}
+      image-title: ${{ matrix.title }}
+      tags: ${{ matrix.tags }}
