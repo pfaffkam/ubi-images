@@ -6,13 +6,34 @@ on:
     - cron: '0 20 * * 1' # Build every monday at 20:00
 
 jobs:
-  build_nginx_images:
-    name: Build NGINX images.
-    uses: ./.github/workflows/build-and-test-images.yml
+  # build_nginx_images:
+  #   name: Build NGINX images.
+  #   uses: ./.github/workflow-templates/build-and-test-images-new.yml
+  #   secrets: inherit
+  #   with:
+  #     build-context: ./nginx
+  #     dockerfile-name: mainline-ubi9.dockerfile
+  #     image-name: nginx
+  #     image-type: mainline
+  #     image-system: ubi9
+
+  build_node_images:
+    name: Build NODE images.
+    uses: ./.github/workflow-templates/build-and-test-images.yml
     secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - title: node-ubi9
+            dockerfile: 21-ubi9.dockerfile
+            tags: |
+              type=raw,value=21-ubi9
+              type=raw,value=21-ubi9-{{date 'YYYYMMDD'}}
     with:
-      build-context: ./nginx
-      dockerfile-name: mainline-ubi9.dockerfile
-      image-name: nginx
-      image-type: mainline
-      image-system: ubi9
+      image-name: pfaffk/node
+      build-context: ./node
+      # builds:
+      #   - dockerfile: 21-ubi9.dockerfile
+      #     tags: |
+            
