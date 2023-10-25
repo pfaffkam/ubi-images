@@ -12,7 +12,22 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - title: node-ubi9
+          - title: node16-ubi9
+            dockerfile: 16-ubi9.dockerfile
+            tags: |
+              type=raw,value=16-ubi9
+              type=raw,value=16-ubi9-{{date 'YYYYMMDD'}}
+          - title: node18-ubi9
+            dockerfile: 18-ubi9.dockerfile
+            tags: |
+              type=raw,value=18-ubi9
+              type=raw,value=18-ubi9-{{date 'YYYYMMDD'}}
+          - title: node20-ubi9
+            dockerfile: 20-ubi9.dockerfile
+            tags: |
+              type=raw,value=20-ubi9
+              type=raw,value=20-ubi9-{{date 'YYYYMMDD'}}
+          - title: node21-ubi9
             dockerfile: 21-ubi9.dockerfile
             tags: |
               type=raw,value=21-ubi9
