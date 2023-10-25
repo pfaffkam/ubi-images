@@ -74,7 +74,7 @@ services:
 
 Next, create file for each service.
 
-```nginx
+```shell
 server {
    listen 8080;
    server_name example.com;
