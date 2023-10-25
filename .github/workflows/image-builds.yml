@@ -8,7 +8,7 @@ on:
 jobs:
   # build_nginx_images:
   #   name: Build NGINX images.
-  #   uses: ./.github/workflow-templates/build-and-test-images-new.yml
+  #   uses: ./.github/workflows/templates/build-and-test-images-new.yml
   #   secrets: inherit
   #   with:
   #     build-context: ./nginx
@@ -18,7 +18,7 @@ jobs:
   #     image-system: ubi9
 
   build_node_images:
-    name: Build NODE images.
+    name: Build NODE images. ./.github/workflows/templates/build-and-test-images.yml
     uses: ./.github/workflow-templates/build-and-test-images.yml
     secrets: inherit
     strategy:
