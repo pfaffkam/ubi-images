@@ -7,22 +7,21 @@ on:
       build-context:
         required: true
         type: string
+      dockerfile:
+        required: true
+        type: string
+      image-title:
+        required: true
+        type: string
+      tags:
+        required: true
+        type: string
 
 jobs:
   build_and_push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     include:
-    #       - dockerfile: ${{ inputs.build-context }}/${{ inputs.dockerfile-name }}
-    #         context: ${{ inputs.build-context }}
-    #         image: pfaffk/${{ inputs.image-name }}
-    #         tags: |
-    #           type=raw,value=${{ inputs.image-type }}-${{ inputs.image-system }}
-    #           type=raw,value=${{ inputs.image-type }}-${{ inputs.image-system }}-{{date 'YYYYMMDD'}}
-    
+
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -40,14 +39,14 @@ jobs:
           images: ${{ inputs.image-name }}
           labels: |
             maintainer=Kamil Pfaff
-            org.opencontainers.image.title=${{ matrix.title }}
-          tags: ${{ matrix.tags }}
+            org.opencontainers.image.title=${{ inputs.image-title }}
+          tags: ${{ inputs.tags }}
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: ${{ inputs.build-context }}
-          file: ${{ inputs.build-context }}/${{ matrix.dockerfile }}
+          file: ${{ inputs.build-context }}/${{ inputs.dockerfile }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

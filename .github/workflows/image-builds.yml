@@ -19,7 +19,7 @@ jobs:
 
   build_node_images:
     name: Build NODE images. ./.github/workflows/templates/build-and-test-images.yml
-    uses: ./.github/workflow-templates/build-and-test-images.yml
+    uses: ./.github/workflows/reusable-build-and-push-image.yml
     secrets: inherit
     strategy:
       fail-fast: false
@@ -33,7 +33,7 @@ jobs:
     with:
       image-name: pfaffk/node
       build-context: ./node
-      # builds:
-      #   - dockerfile: 21-ubi9.dockerfile
-      #     tags: |
+      dockerfile: ${{ matrix.dockerfile }}
+      image-title: ${{ matrix.title }}
+      tags: ${{ matrix.tags }}
             
