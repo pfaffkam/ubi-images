@@ -55,7 +55,7 @@ Here's the example of using this image as reverse proxy with SSL termination for
 In this case, image is launched using docker compose.
 The `./servers` host directory is mounted under `/etc/nginx/conf.d`. Please keep in mind, when you mount some directories - all directory content is overriden. This means, the `default-http.conf` file that is present by default in `/etc/nginx/conf.d` directory will be deleted. You should put copy of this file inside your host `./servers` directory.
 
-**Due to rootless image policy** (*look at 'Best Pracitices' section, second point*)**, the `./servers` directory should be owned by `root` group, and have group read permission (at least `g=r`).**
+**Due to rootless image policy** (*look at 'Best Pracitices' section, second point*)**, the `./servers` and `./ssl` directories should be owned by `root` group, and have group read permission (at least `g=r`).**
 ```yaml
 # docker-compose.yml
 ---
@@ -70,6 +70,14 @@ services:
         - 443:8443
       volumes:
         - ./servers:/etc/nginx/conf.d
+        - ./ssl:/etc/certs
+      neworks:  # required if your app is in another docker network
+        - example-net
+
+networks: # required if your app is in another docker network
+  sample-net:
+    name: sample-net
+    external: true
 ```
 
 Next, create file for each service.
