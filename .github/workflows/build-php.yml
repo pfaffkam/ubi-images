@@ -12,11 +12,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - title: phpfpm-ubi9
+          - title: php81fpm-ubi9
             dockerfile: 8.1fpm-ubi9.dockerfile
             tags: |
               type=raw,value=8.1fpm-ubi9
               type=raw,value=8.1fpm-ubi9-{{date 'YYYYMMDD'}}
+          - title: php83fpm-ubi9
+            dockerfile: 8.3fpm-ubi9.dockerfile
+            tags: |
+              type=raw,value=8.3fpm-ubi9
+              type=raw,value=8.3fpm-ubi9-{{date 'YYYYMMDD'}}
     with:
       image-name: pfaffk/php
       build-context: ./php
