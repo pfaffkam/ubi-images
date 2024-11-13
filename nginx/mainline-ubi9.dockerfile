@@ -11,8 +11,8 @@ LABEL org.opencontainers.image.authors="Kamil Pfaff" \
 
 COPY nginx.repo /etc/yum.repos.d/nginx.repo
 
-RUN dnf -y install nginx \
- && dnf -y clean all --enablerepo='*'
+RUN microdnf -y install nginx \
+ && microdnf -y clean all --enablerepo='*'
 
 COPY error_pages/ /usr/share/nginx/error_pages/
 COPY nginx.conf /etc/nginx/nginx.conf
