@@ -5,9 +5,9 @@ EXPOSE 8443
 
 LABEL org.opencontainers.image.authors="Kamil Pfaff" \
       org.opencontainers.image.url="https://hub.docker.com/r/pfaffk/nginx" \
-      org.opencontainers.image.documentation="https://github.com/Reykez/alma-images/tree/main/nginx/README.md" \
-      org.opencontainers.image.source="https://github.com/Reykez/alma-images/tree/main/nginx" \
-      org.opencontainers.image.title="NGINX Alma Linux"
+      org.opencontainers.image.documentation="https://github.com/Reykez/ubi-images/tree/main/nginx/README.md" \
+      org.opencontainers.image.source="https://github.com/Reykez/ubi-images/tree/main/nginx" \
+      org.opencontainers.image.title="NGINX UBI Linux"
 
 COPY nginx.repo /etc/yum.repos.d/nginx.repo
 
@@ -35,7 +35,6 @@ RUN ln -s /usr/share/nginx/html /www \
                     /etc/nginx \
  && chmod g+s /usr/share/nginx \
  && chmod -R g+rwX /var/log/nginx \
-                   /var/cache/nginx \
  && rm /etc/nginx/conf.d/default.conf \
  && rm -rf /usr/share/nginx/html/*
 
