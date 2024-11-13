@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/ubi
+FROM registry.access.redhat.com/ubi9/ubi-minimal
 
 EXPOSE 8080
 EXPOSE 8443
