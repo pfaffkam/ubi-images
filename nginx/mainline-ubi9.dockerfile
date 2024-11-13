@@ -30,12 +30,10 @@ RUN mkdir -p /etc/nginx/ssl \
 # Drop root user
 RUN ln -s /usr/share/nginx/html /www \
  && chown -R 1000:0 /usr/share/nginx \
-                    /var/cache/nginx \
                     /var/log/nginx \
                     /etc/nginx \
  && chmod g+s /usr/share/nginx \
  && chmod -R g+rwX /var/log/nginx \
- && rm /etc/nginx/conf.d/default.conf \
  && rm -rf /usr/share/nginx/html/*
 
 USER 1000:0
